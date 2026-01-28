@@ -1,23 +1,43 @@
 # PhotoCluster
 
-UI demo (static preview) for LinkedIn/portfolio purposes.
+PhotoCluster es una aplicación para **organizar fotos de eventos por personas** usando reconocimiento facial, con el objetivo de acelerar el flujo de trabajo de fotógrafos (bodas, comuniones, eventos corporativos, etc.).
 
-## GitHub Pages (recommended)
+## Qué hace
 
-This repo includes a GitHub Pages workflow that publishes a **static preview** of the UI (no backend / no processing).
+- **Auto (Agrupar todo):** analiza las fotos del evento y genera **carpetas por persona** detectada.
+- **Búsqueda (Encontrar personas concretas):** subes fotos de referencia y el sistema devuelve solo las fotos donde aparece esa persona.
+- **Revisión rápida:** vista por “clusters”, galería, mover fotos entre carpetas y “No clasificadas”.
 
-After you push this repo to GitHub and Pages deploys, your link will be:
+## Demo pública (UI)
 
-`https://<github-username>.github.io/<repo-name>/`
+La demo pública está desplegada en GitHub Pages:
 
-### How to publish
+`https://antonionogues.github.io/photo-cluster/`
 
-1. Push to GitHub (public or private + Pages enabled).
-2. In GitHub: **Settings → Pages → Build and deployment → GitHub Actions**
-3. Wait for the workflow **Deploy to GitHub Pages** to finish.
+Para entrar, escribe `DEMO` en la pantalla inicial.
 
-## Notes
+## Qué incluye este repositorio
 
-- The GitHub Pages site is intentionally **read-only**: it’s just to show the interface.
-- The real app requires the backend (upload/processing/results endpoints) running locally or on a server.
+Este repositorio **solo publica el frontend** (interfaz) a modo escaparate.
+
+- Incluye: UI (React/Vite) + workflow de GitHub Pages.
+- No incluye: backend, servidor de licencias, ni el pipeline/modelo de clustering.
+
+> Motivo: mantener privado el “core” (modelo/pipeline) y evitar que se pueda replicar el sistema completo clonando este repo.
+
+## Publicar (GitHub Pages)
+
+El despliegue se hace con GitHub Actions (ya configurado en `.github/workflows/pages.yml`).
+
+1. En GitHub: **Settings → Pages → Build and deployment → GitHub Actions**
+2. Ve a **Actions** y espera a que termine **Deploy to GitHub Pages**
+
+## Desarrollo local (solo UI)
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
 
