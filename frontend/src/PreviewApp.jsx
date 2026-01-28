@@ -72,13 +72,9 @@ export default function PreviewApp() {
   const [licenseKey, setLicenseKey] = useState('');
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [screen, setScreen] = useState('upload'); // upload | results | detail
-  const [selectedClusterId, setSelectedClusterId] = useState('c1');
+  const [selectedClusterId, setSelectedClusterId] = useState('c5');
 
   const clusters = useMemo(() => ([
-    { id: 'c1', name: '📁 Novia', thumb: svgPlaceholderDataUri('Bride', '#f59e0b') },
-    { id: 'c2', name: '📁 Novio', thumb: svgPlaceholderDataUri('Groom', '#2ea043') },
-    { id: 'c3', name: '📁 Familia', thumb: svgPlaceholderDataUri('Family', '#646cff') },
-    { id: 'c4', name: '📁 Amigos', thumb: svgPlaceholderDataUri('Friends', '#22c55e') },
     { id: 'c5', name: '📁 Invitados', thumb: svgPlaceholderDataUri('Guests', '#60a5fa') },
     { id: 'u', name: '❓ No clasificadas', thumb: svgPlaceholderDataUri('Unclassified', '#9ca3af') },
   ]), []);
