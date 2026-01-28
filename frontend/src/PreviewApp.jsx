@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
-import { ArrowLeft, Download, Edit2, Image as ImageIcon, Lock, Upload, Users } from 'lucide-react';
+import { ArrowLeft, Download, Edit2, Image as ImageIcon, Key, Lock, Play, Upload, Users } from 'lucide-react';
 
 function svgPlaceholderDataUri(label, accent = '#2ea043') {
   const svg = `<?xml version="1.0" encoding="UTF-8"?>
@@ -69,6 +69,8 @@ function PreviewBanner() {
 }
 
 export default function PreviewApp() {
+  const [licenseKey, setLicenseKey] = useState('');
+  const [isUnlocked, setIsUnlocked] = useState(false);
   const [screen, setScreen] = useState('upload'); // upload | results | detail
   const [selectedClusterId, setSelectedClusterId] = useState('c1');
 
@@ -88,6 +90,123 @@ export default function PreviewApp() {
       src: svgPlaceholderDataUri(`${base} Photo ${i + 1}`, '#2ea043'),
     }));
   }, [selectedClusterId]);
+
+  const unlock = (value) => {
+    const normalized = (value || '').trim().toUpperCase();
+    if (normalized === 'DEMO' || normalized.startsWith('DEMO-')) {
+      setIsUnlocked(true);
+      toast.success('Modo demo (preview) activado.');
+      return;
+    }
+    toast.info('Preview: escribe DEMO para entrar.');
+  };
+
+  if (!isUnlocked) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 20,
+        background: 'radial-gradient(circle at 50% -20%, var(--bg-primary, #2a2a40), var(--bg-tertiary, #000) 90%)',
+        fontFamily: 'Inter, system-ui, sans-serif',
+      }}>
+        <div style={{ width: '100%', maxWidth: 520 }}>
+          <h1 style={{ textAlign: 'center', marginBottom: 18 }}>
+            PhotoCluster <span style={{ fontSize: '0.8rem', color: '#2ea043', border: '1px solid #2ea043', borderRadius: '4px', padding: '2px 6px', verticalAlign: 'middle' }}>PREVIEW</span>
+          </h1>
+
+          <PreviewBanner />
+
+          <div className="card" style={{ textAlign: 'center' }}>
+            <div style={{
+              background: 'rgba(46, 160, 67, 0.2)',
+              width: 64, height: 64, borderRadius: '50%',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              margin: '0 auto 1rem auto'
+            }}>
+              <Lock size={32} color="#2ea043" />
+            </div>
+
+            <h2 style={{ marginTop: 0, color: 'var(--text-main)' }}>Acceso (demo)</h2>
+            <p style={{ color: 'var(--text-muted)', marginTop: 8, lineHeight: 1.5 }}>
+              Esto es un escaparate para LinkedIn. Para “entrar” a la interfaz, escribe <b>DEMO</b>.
+            </p>
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                unlock(licenseKey);
+              }}
+              style={{ marginTop: 16 }}
+            >
+              <div style={{ position: 'relative' }}>
+                <Key size={18} color="#666" style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)' }} />
+                <input
+                  type="text"
+                  value={licenseKey}
+                  onChange={(e) => setLicenseKey(e.target.value)}
+                  placeholder="Escribe DEMO para entrar"
+                  style={{
+                    width: '100%',
+                    boxSizing: 'border-box',
+                    padding: '12px 16px 12px 48px',
+                    background: 'var(--bg-tertiary)',
+                    border: '1px solid var(--border-color)',
+                    borderRadius: '12px',
+                    color: 'var(--text-main)',
+                    fontSize: '1rem',
+                    outline: 'none',
+                  }}
+                />
+              </div>
+
+              <button
+                type="submit"
+                style={{
+                  width: '100%',
+                  marginTop: 12,
+                  padding: 12,
+                  background: '#2ea043',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '12px',
+                  fontSize: '1rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                }}
+              >
+                Entrar
+              </button>
+
+              <button
+                type="button"
+                onClick={() => unlock('DEMO')}
+                style={{
+                  width: '100%',
+                  marginTop: 10,
+                  padding: 12,
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  color: 'var(--text-muted)',
+                  border: '1px solid var(--border-color)',
+                  borderRadius: '12px',
+                  fontSize: '0.95rem',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 10,
+                }}
+              >
+                <Play size={16} /> Probar demo (preview)
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container">
@@ -269,4 +388,3 @@ export default function PreviewApp() {
     </div>
   );
 }
-
