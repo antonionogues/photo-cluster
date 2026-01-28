@@ -34,3 +34,6 @@ licenses.db
 .DS_Store
 Thumbs.db
 .vscode/
+
+# Git bundles (history backups)
+*.bundle
