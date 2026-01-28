@@ -1,0 +1,36 @@
+# Node
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# Vite / build outputs
+backend/app/static/
+
+# App data (avoid committing private photos / DBs)
+backend/media/
+backend/*.db
+backend/*.db-*
+backend/config.json
+backend/licenses.csv
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Env / secrets
+.env
+.env.*
+
+# Local databases / artifacts
+licenses.db
+*.sqlite
+*.sqlite3
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
